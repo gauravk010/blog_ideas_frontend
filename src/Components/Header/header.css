@@ -1,0 +1,7 @@
+/* nav{
+height: 60px;
+background-color: aliceblue;
+} */
+.texthover :hover{
+ color: red;
+}
