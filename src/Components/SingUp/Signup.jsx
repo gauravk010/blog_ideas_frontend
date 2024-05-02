@@ -3,6 +3,7 @@ import "./sign.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../Context/helper";
+import * as yup from "yup";
 
 export const Signup = () => {
   useEffect(() => {
@@ -11,6 +12,15 @@ export const Signup = () => {
     }
     // eslint-disable-next-line
   }, []);
+  const [Error, setError] = useState({});
+  const schema = yup.object({
+    fullname: yup.string().required("Please enter the username"),
+    email: yup
+      .string()
+      .required("Please enter the email")
+      .email("Invalid email format"),
+    password: yup.string().required("Please enter the password"),
+  });
 
   const navigate = useNavigate();
 
@@ -25,38 +35,46 @@ export const Signup = () => {
     setState({ ...state, [name]: value });
   };
 
-  const signup = (e) => {
+  const signup = async (e) => {
     e.preventDefault();
-
-    setState({
-      fullname: "",
-      email: "",
-      password: "",
-    });
-
-    let data = {
-      fullname: state.fullname,
-      email: state.email,
-      password: state.password,
-    };
-
-    let config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    axios
-      .post(`${BASE_URL}/createuser`, data, config)
-      .then((res) => {
-
-        if (res.data.success) {
-          navigate("/login");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
+    try {
+      await schema.validate(state, { abortEarly: false });
+      setState({
+        fullname: "",
+        email: "",
+        password: "",
       });
+
+      let data = {
+        fullname: state.fullname,
+        email: state.email,
+        password: state.password,
+      };
+
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      axios
+        .post(`${BASE_URL}/createuser`, data, config)
+        .then((res) => {
+          if (res.data.success) {
+            navigate("/login");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      const newErrors = {};
+
+      error.inner.forEach((err) => {
+        newErrors[err.path] = err.message;
+      });
+      setError(newErrors);
+    }
   };
 
   return (
@@ -74,6 +92,7 @@ export const Signup = () => {
             value={state.fullname}
             onChange={onchange}
           />
+          <p className="mt-2">{Error ? Error.fullname : ""}</p>
         </div>
         <div className="flex mt-4 flex-col w-full">
           <label htmlFor="email">
@@ -86,6 +105,7 @@ export const Signup = () => {
             value={state.email}
             onChange={onchange}
           />
+          <p className="mt-2">{Error ? Error.email : ""}</p>
         </div>
         <div className="flex  mt-4 flex-col w-full">
           <label htmlFor="password">
@@ -98,6 +118,7 @@ export const Signup = () => {
             value={state.password}
             onChange={onchange}
           />
+          <p className="mt-2">{Error ? Error.password : ""}</p>
         </div>
         <div className="flex justify-center">
           <button className="bg-red-500 py-4 px-6 rounded-full mt-8">

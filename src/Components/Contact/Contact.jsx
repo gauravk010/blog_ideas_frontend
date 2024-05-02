@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Category from "../Blog/Category";
 
 const Contact = () => {
+  useEffect(() => {
+    window.scroll({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <div className="flex mt-16 gap-8">
       <div className="flex-1 text-white">
@@ -58,10 +61,18 @@ const Contact = () => {
               <label htmlFor="mobile">
                 Message<span className="text-red-500">*</span>
               </label>
-              <textarea className="mt-2 rounded-sm bg-[#020116] border border-[#383444] px-2 py-4" name="" id="" cols="30" rows="5"></textarea>
+              <textarea
+                className="mt-2 rounded-sm bg-[#020116] border border-[#383444] px-2 py-4"
+                name=""
+                id=""
+                cols="30"
+                rows="5"
+              ></textarea>
             </div>
           </div>
-          <button className="bg-red-500 py-4 px-6 rounded-full mt-8">Submit Now</button>
+          <button className="bg-red-500 py-4 px-6 rounded-full mt-8">
+            Submit Now
+          </button>
         </form>
       </div>
       <div className="w-[30%]">

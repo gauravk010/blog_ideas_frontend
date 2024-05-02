@@ -1,35 +1,64 @@
 import React from "react";
 import "./footer.css";
 import { Link } from "react-router-dom";
-
+import {
+  FaSquareFacebook,
+  FaSquarePinterest,
+  FaSquareXTwitter,
+  FaLinkedin,
+} from "react-icons/fa6";
+import { FaChevronRight } from "react-icons/fa";
 const Footer = () => {
   return (
-    <footer className="flex justify-between items-center text-white min-h-52 gap-10 py-20">
+    <footer className="flex justify-between items-start text-white min-h-52 gap-10 py-20">
       <div className="w-[40%]">
-        <h1 className="text-3xl font-bold">BLOG IDEAS</h1>
-        <p className="text-sm text-justify mt-6 w-[60%] text-[#b1b0b7]">
-          TNC Blogger enhances blogging with smooth design and versatile
-          features, providing a user-friendly experience for Bloggers. Get this
-          TNC Blogger Webflow Blog template now!
+        <h1 className="text-3xl font-bold cursor-pointer">BLOG IDEAS</h1>
+        <p className="text-sm text-justify mt-6 w-[80%] text-[#b1b0b7]">
+          Blog Ideas Blogger enhances blogging with smooth design and versatile
+          features, providing a user-friendly experience for Bloggers.
         </p>
         <div className="mt-6 flex gap-2">
-          icons
+          <FaSquareFacebook className="text-3xl cursor-pointer hover:-translate-y-1.5 transition-transform delay-[.7] ease-in-out" />
+          <FaSquarePinterest className="text-3xl cursor-pointer hover:-translate-y-1.5 transition-transform delay-[.7] ease-in-out" />
+          <FaSquareXTwitter className="text-3xl cursor-pointer hover:-translate-y-1.5 transition-transform delay-[.7] ease-in-out" />
+          <FaLinkedin className="text-3xl cursor-pointer hover:-translate-y-1.5 transition-transform delay-[.7] ease-in-out" />
         </div>
       </div>
       <div className="w-[20%]">
         <h1 className="text-xl">Useful Links</h1>
         <ul className="mt-6 text-[#b1b0b7]">
           <li className="mt-6">
-            <Link>Home</Link>
+            <Link
+              to={"/"}
+              className="flex items-center gap-2 hover:text-red-500 transition ease-out delay-100"
+            >
+              <FaChevronRight />
+              <span>Home</span>
+            </Link>
           </li>
           <li className="mt-6">
-            <Link>Ablout</Link>
+            <Link
+              to={"/about"}
+              className="flex items-center gap-2 hover:text-red-500 transition ease-out delay-100"
+            >
+              <FaChevronRight />
+              <span>About</span>
+            </Link>
           </li>
           <li className="mt-6">
-            <Link>Contact</Link>
+            <Link
+              to={"/contact"}
+              className="flex items-center gap-2 hover:text-red-500 transition ease-out delay-100"
+            >
+              <FaChevronRight />
+              <span>Contact</span>
+            </Link>
           </li>
           <li className="mt-6">
-            <Link>Help</Link>
+            <Link className="flex items-center gap-2 hover:text-red-500 transition ease-out delay-100">
+              <FaChevronRight />
+              <span>Help</span>
+            </Link>
           </li>
         </ul>
       </div>
@@ -37,21 +66,89 @@ const Footer = () => {
         <h1 className="text-xl">Useful Links</h1>
         <ul className="mt-6 text-[#b1b0b7]">
           <li className="mt-6">
-            <Link>Home</Link>
+            <Link
+              to={"/"}
+              className="flex items-center gap-2 hover:text-red-500 transition ease-out delay-100"
+            >
+              <FaChevronRight />
+              <span>Home</span>
+            </Link>
           </li>
           <li className="mt-6">
-            <Link>Ablout</Link>
+            <Link
+              to={"/about"}
+              className="flex items-center gap-2 hover:text-red-500 transition ease-out delay-100"
+            >
+              <FaChevronRight />
+              <span>About</span>
+            </Link>
           </li>
           <li className="mt-6">
-            <Link>Contact</Link>
+            <Link
+              to={"/contact"}
+              className="flex items-center gap-2 hover:text-red-500 transition ease-out delay-100"
+            >
+              <FaChevronRight />
+              <span>Contact</span>
+            </Link>
           </li>
           <li className="mt-6">
-            <Link>Help</Link>
+            <Link className="flex items-center gap-2 hover:text-red-500 transition ease-out delay-100">
+              <FaChevronRight />
+              <span>Help</span>
+            </Link>
           </li>
         </ul>
       </div>
       <div className="w-[20%]">
-        <h1 className="text-xl">Recent Posts</h1>
+        <h1 className="text-xl">Categories</h1>
+        <ul className="mt-6 text-[#b1b0b7]">
+          <li className="mt-6">
+            <Link
+              to={`/?category=health`}
+              className="flex items-center gap-2 hover:text-red-500 transition ease-out delay-100"
+            >
+              <FaChevronRight />
+              <span>Health</span>
+            </Link>
+          </li>
+          <li className="mt-6">
+            <Link
+              to={`/?category=fashion`}
+              className="flex items-center gap-2 hover:text-red-500 transition ease-out delay-100"
+            >
+              <FaChevronRight />
+              <span>Fashion</span>
+            </Link>
+          </li>
+          <li className="mt-6">
+            <Link
+              to={`/?category=food`}
+              className="flex items-center gap-2 hover:text-red-500 transition ease-out delay-100"
+            >
+              <FaChevronRight />
+              <span>Food</span>
+            </Link>
+          </li>
+          <li className="mt-6">
+            <Link
+              to={`/?category=travel`}
+              className="flex items-center gap-2 hover:text-red-500 transition ease-out delay-100"
+            >
+              <FaChevronRight />
+              <span>Travel</span>
+            </Link>
+          </li>
+          <li className="mt-6">
+            <Link
+              to={`/?category=sports`}
+              className="flex items-center gap-2 hover:text-red-500 transition ease-out delay-100"
+            >
+              <FaChevronRight />
+              <span>Sports</span>
+            </Link>
+          </li>
+        </ul>
       </div>
     </footer>
   );

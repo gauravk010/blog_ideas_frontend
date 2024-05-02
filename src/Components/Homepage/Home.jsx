@@ -7,20 +7,18 @@ import { useSearchParams } from "react-router-dom";
 
 const Home = () => {
   const [searchParams] = useSearchParams();
-  console.log(searchParams.get("category"));
   const querry = searchParams.get("category");
   const context = useContext(BlogContext);
   const { fetchByCategory, blogs, fetchAll } = context;
 
   useEffect(() => {
+    window.scroll({ top: 0, behavior: "smooth" });
     if (querry) {
       fetchByCategory(querry);
     } else {
       fetchAll();
     }
   }, [querry]);
-
-  console.log(blogs);
   // category code
   // const [blogItems, setBlogItems] = useState(data)
   // const allCategories = ['All', ...new Set(blogs.map(item => item.blog_category))];

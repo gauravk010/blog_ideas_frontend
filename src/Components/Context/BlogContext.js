@@ -10,6 +10,9 @@ export const BlogContextProvider = (props) => {
   const [BlogByID, setBlogByID] = useState([]);
   const [blogsCate, setBlogsCate] = useState([]);
   const [user, setUser] = useState("");
+  const [Islogin, setIslogin] = useState(false);
+  const [IsAdded, setIsAdded] = useState(0);
+  const [IsLoading, setIsLoading] = useState(false);
 
   const fetchAll = () => {
     // let config = {
@@ -25,11 +28,9 @@ export const BlogContextProvider = (props) => {
   };
 
   const fetchByCategory = (querry) => {
-    axios
-      .get(`${BASE_URL}/fetchByCategory?category=${querry}`)
-      .then((res) => {
-        setBlogs(res.data);
-      });
+    axios.get(`${BASE_URL}/fetchByCategory?category=${querry}`).then((res) => {
+      setBlogs(res.data);
+    });
   };
 
   const fetchOnlyUser = () => {
@@ -95,6 +96,7 @@ export const BlogContextProvider = (props) => {
   };
 
   const AddBlog = (title, description, category, file) => {
+    setIsLoading(true);
     let data = {
       blog_title: title,
       blog_desc: description,
@@ -113,9 +115,12 @@ export const BlogContextProvider = (props) => {
       .post(`${BASE_URL}/upload`, data, config)
       .then((res) => {
         // console.log(res.data);
+        setIsAdded(IsAdded + 1);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
       });
   };
 
@@ -138,6 +143,7 @@ export const BlogContextProvider = (props) => {
       .put(`${BASE_URL}/update/${id}`, data, config)
       .then((res) => {
         // console.log(res.data);
+        setIsAdded(IsAdded + 1);
       })
       .catch((err) => {
         console.log(err);
@@ -157,11 +163,17 @@ export const BlogContextProvider = (props) => {
         EditBlog,
         fetchUser,
         user,
+        setUser,
         fetcBlogsCate,
         blogsCate,
         fetchBlogByID,
         BlogByID,
         fetchByCategory,
+        Islogin,
+        setIslogin,
+        IsAdded,
+        setIsAdded,
+        IsLoading,
       }}
     >
       {props.children}

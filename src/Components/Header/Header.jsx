@@ -7,17 +7,19 @@ import { IoMdArrowDropdown } from "react-icons/io";
 
 const Header = () => {
   const context = useContext(BlogContext);
-  const { fetchUser, user } = context;
+  const { fetchUser, user, setUser, Islogin, setIslogin } = context;
   useEffect(() => {
     if (localStorage.getItem("authtoken")) {
       fetchUser();
     }
-  }, [user]);
+  }, [Islogin]);
 
   const navigate = useNavigate();
 
   const logout = () => {
     localStorage.removeItem("authtoken");
+    setUser("");
+    setIslogin(false);
     navigate("/login");
   };
 

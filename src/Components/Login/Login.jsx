@@ -1,10 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./login.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../Context/helper";
+import { BlogContext } from "../Context/BlogContext";
+import * as yup from "yup";
 
 export const Login = () => {
+  const context = useContext(BlogContext);
+  const { setIslogin } = context;
+  const [Error, setError] = useState({});
+  const schema = yup.object({
+    email: yup
+      .string()
+      .required("Please enter the email")
+      .email("Invalid email format"),
+    password: yup.string().required("Please enter the password"),
+  });
+
   useEffect(() => {
     if (localStorage.getItem("authtoken")) {
       navigate("/");
@@ -24,39 +37,47 @@ export const Login = () => {
     setState({ ...state, [name]: value });
   };
 
-  const login = (e) => {
+  const login = async (e) => {
     e.preventDefault();
-
-    setState({
-      email: "",
-      password: "",
-    });
-
-    let data = {
-      email: state.email,
-      password: state.password,
-    };
-
-
-    let config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    axios
-      .post(`${BASE_URL}/login`, data, config)
-      .then((res) => {
-
-        if (res.data.success) {
-          // saving auth token
-          localStorage.setItem("authtoken", res.data.token);
-          navigate("/");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
+    try {
+      await schema.validate(state, { abortEarly: false });
+      setState({
+        email: "",
+        password: "",
       });
+
+      let data = {
+        email: state.email,
+        password: state.password,
+      };
+
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      axios
+        .post(`${BASE_URL}/login`, data, config)
+        .then((res) => {
+          if (res.data.success) {
+            // saving auth token
+            localStorage.setItem("authtoken", res.data.token);
+            setIslogin(true);
+            navigate("/");
+          }
+        })
+        .catch((err) => {
+          setError({ invalid: err.response.data.error });
+        });
+    } catch (error) {
+      const newErrors = {};
+
+      error.inner.forEach((err) => {
+        newErrors[err.path] = err.message;
+      });
+      setError(newErrors);
+    }
   };
   return (
     <div className="flex flex-col mt-16 gap-8 text-white w-[400px] mx-auto border border-[#383444] rounded-sm px-8 py-8">
@@ -73,6 +94,7 @@ export const Login = () => {
             value={state.email}
             onChange={onchange}
           />
+          <p className="mt-2">{Error ? Error.email : ""}</p>
         </div>
         <div className="flex  mt-4 flex-col w-full">
           <label htmlFor="password">
@@ -85,9 +107,14 @@ export const Login = () => {
             value={state.password}
             onChange={onchange}
           />
+          <p className="mt-2"> {Error ? Error.password : ""}</p>
         </div>
+        {Error ? Error.invalid : ""}
         <div className="flex justify-center">
-          <button className="bg-red-500 py-4 px-6 rounded-full mt-8">
+          <button
+            type="submit"
+            className="bg-red-500 py-4 px-6 rounded-full mt-8"
+          >
             Login
           </button>
         </div>

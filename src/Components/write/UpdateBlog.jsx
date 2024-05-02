@@ -4,20 +4,30 @@ import Category from "../Blog/Category";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../Context/helper";
+import * as yup from "yup";
 
 const UpdateBlog = () => {
   const { id } = useParams();
   const context = useContext(BlogContext);
-  const { EditBlog } = context;
+  const { EditBlog, IsLoading } = context;
   const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("authtoken")) {
+      window.scroll({ top: 0, behavior: "smooth" });
       fetchUserBlogByID(id);
     }
   }, []);
+  const [Error, setError] = useState({});
+  const schema = yup.object({
+    blog_title: yup.string().required("Title is required"),
+    blog_desc: yup.string().required("Description is required"),
+    blog_category: yup.string().required("Category is required"),
+    blog_img: yup.string().required("Image is required"),
+  });
 
   const [files, setFiles] = useState("");
+  const [Preview, setPreview] = useState("");
   const [blog, setBlog] = useState({
     id: "",
     blog_title: "",
@@ -40,32 +50,30 @@ const UpdateBlog = () => {
         blog_category: res.data.blog_category,
       });
       setFiles(res.data.blog_img);
-      console.log("BlogperId", res.data);
     });
   };
 
-  //   const UpdateBlog = () => {
-  //     setBlog({
-  //       id: UserBlogByID._id,
-  //       blog_title: UserBlogByID.blog_title,
-  //       blog_desc: UserBlogByID.blog_desc,
-  //       blog_category: UserBlogByID.blog_category,
-  //     });
-  //     setFiles(UserBlogByID.blog_img);
-  //   };
-
-  const submitBLog = (e) => {
+  const submitBLog = async (e) => {
     e.preventDefault();
-    console.log(blog);
-    console.log(files);
-    EditBlog(
-      blog.id,
-      blog.blog_title,
-      blog.blog_desc,
-      blog.blog_category,
-      files
-    );
-    navigate("/");
+    try {
+      let data = { ...blog, blog_img: files };
+      await schema.validate(data, { abortEarly: false });
+      EditBlog(
+        blog.id,
+        blog.blog_title,
+        blog.blog_desc,
+        blog.blog_category,
+        files
+      );
+      navigate("/write");
+    } catch (error) {
+      const newErrors = {};
+
+      error.inner.forEach((err) => {
+        newErrors[err.path] = err.message;
+      });
+      setError(newErrors);
+    }
   };
 
   const onchange = (e) => {
@@ -88,6 +96,7 @@ const UpdateBlog = () => {
                 value={blog.blog_title}
                 onChange={onchange}
               />
+              <p className="mt-2">{Error ? Error.blog_title : ""}</p>
             </div>
           </div>
           <div className="mt-8">
@@ -103,6 +112,7 @@ const UpdateBlog = () => {
                 value={blog.blog_desc}
                 onChange={onchange}
               ></textarea>
+              <p className="mt-2">{Error ? Error.blog_desc : ""}</p>
             </div>
           </div>
           <div className="mt-8">
@@ -116,12 +126,13 @@ const UpdateBlog = () => {
                 onChange={onchange}
                 value={blog.blog_category}
               >
-                <option value="general">General</option>
+                <option value="">Select</option>
                 <option value="sports">Sports</option>
                 <option value="fashion">Fashion</option>
                 <option value="health">Health</option>
                 <option value="good">Food</option>
               </select>
+              <p className="mt-2">{Error ? Error.blog_category : ""}</p>
             </div>
           </div>
           <div className="mt-8">
@@ -133,12 +144,42 @@ const UpdateBlog = () => {
                 type="file"
                 name="image"
                 className="mt-2 rounded-sm bg-[#020116] border border-[#383444] px-2 py-4"
-                onChange={(e) => setFiles(e.target.files[0])}
+                onChange={(e) => {
+                  setFiles(e.target.files[0]);
+                  if (e.target.files[0]) {
+                    setPreview(URL.createObjectURL(e.target.files[0]));
+                  } else {
+                    setPreview("");
+                  }
+                }}
               />
+              {Preview ? (
+                <div className="mt-2">
+                  <img
+                    className="w-80 rounded-md h-52 object-cover"
+                    src={Preview}
+                    alt="Preview"
+                  />
+                </div>
+              ) : (
+                files && (
+                  <div className="mt-2">
+                    <img
+                      className="w-80 rounded-md h-52 object-cover"
+                      src={`${BASE_URL}/uploads/${files}`}
+                      alt="fetched"
+                    />
+                  </div>
+                )
+              )}
+              <p className="mt-2">{Error ? Error.blog_img : ""}</p>
             </div>
           </div>
-          <button className="bg-red-500 py-4 px-6 rounded-full mt-8">
-            Submit Now
+          <button
+            className="bg-red-500 py-4 px-6 rounded-full mt-8"
+            disabled={IsLoading ? true : false}
+          >
+            {IsLoading ? "Loading" : "Submit Now"}
           </button>
         </form>
       </div>
