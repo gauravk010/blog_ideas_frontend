@@ -70,7 +70,7 @@ const Contact = () => {
               ></textarea>
             </div>
           </div>
-          <button className="bg-red-500 py-4 px-6 rounded-full mt-8">
+          <button type="button" className="bg-red-500 py-4 px-6 rounded-full mt-8">
             Submit Now
           </button>
         </form>

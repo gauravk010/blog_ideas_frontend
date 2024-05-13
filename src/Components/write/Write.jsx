@@ -70,6 +70,7 @@ const Write = () => {
       AddBlog(blog.blog_title, blog.blog_desc, blog.blog_category, files);
       setBlog({ blog_title: "", blog_desc: "", blog_category: "" });
       setFiles("");
+      setPreview("");
     } catch (error) {
       const newErrors = {};
 
@@ -174,7 +175,7 @@ const Write = () => {
           </button>
         </form>
         <div className="mt-8">
-          {Userblogs.length > 0 &&
+          {Userblogs.length > 0 ? (
             Userblogs.map((item) => {
               return (
                 <div
@@ -222,7 +223,10 @@ const Write = () => {
                   </div>
                 </div>
               );
-            })}
+            })
+          ) : (
+            <div className="text-center text-2xl">Write your first Blog!</div>
+          )}
         </div>
       </div>
       <div className="w-full min-[990px]:w-[30%]">

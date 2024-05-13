@@ -4,6 +4,7 @@ import { BlogContext } from "../Context/BlogContext";
 import Blog from "../Blog/Blog";
 import Category from "../Blog/Category";
 import { useSearchParams } from "react-router-dom";
+import { Spinner } from "../Common/Spinner";
 
 const Home = () => {
   const [searchParams] = useSearchParams();
@@ -24,7 +25,7 @@ const Home = () => {
     <>
       <div className="flex flex-col mt-10 sm:mt-16 gap-8 min-[990px]:flex-row">
         <div className="flex-1">
-          <Blog blogs={blogs} />
+          {blogs.length ? <Blog blogs={blogs} /> : <Spinner />}
         </div>
         <div className="w-full min-[990px]:w-[30%]">
           <Category />
