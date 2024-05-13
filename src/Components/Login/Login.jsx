@@ -80,7 +80,7 @@ export const Login = () => {
     }
   };
   return (
-    <div className="flex flex-col mt-16 gap-8 text-white w-[400px] mx-auto border border-[#383444] rounded-sm px-8 py-8">
+    <div className="flex flex-col mt-10 sm:mt-16 gap-8 text-white sm:w-[400px] mx-auto border border-[#383444] rounded-sm px-8 py-8">
       <h1 className="text-4xl font-bold text-center">Login</h1>
       <form className="mt-4  w-full" onSubmit={login}>
         <div className="flex mt-4 flex-col w-full">

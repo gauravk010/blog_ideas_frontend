@@ -6,13 +6,13 @@ const Contact = () => {
     window.scroll({ top: 0, behavior: "smooth" });
   }, []);
   return (
-    <div className="flex mt-16 gap-8">
+    <div className="flex flex-col mt-10 sm:mt-16 gap-8 min-[990px]:flex-row">
       <div className="flex-1 text-white">
         <div>
           <h1 className="text-5xl font-bold">Get in touch</h1>
         </div>
         <form className="mt-8" action="">
-          <div className="flex gap-6 justify-between">
+          <div className="flex flex-col  gap-6 justify-between">
             <div className="flex flex-col w-full">
               <label htmlFor="name">
                 Name<span className="text-red-500">*</span>
@@ -23,7 +23,7 @@ const Contact = () => {
                 name="name"
               />
             </div>
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col  w-full">
               <label htmlFor="email">
                 Email<span className="text-red-500">*</span>
               </label>
@@ -34,8 +34,8 @@ const Contact = () => {
               />
             </div>
           </div>
-          <div className="flex gap-6 justify-between mt-8">
-            <div className="flex flex-col w-full">
+          <div className="flex flex-col sm:flex-row gap-6 justify-between mt-8">
+            <div className="flex flex-col  w-full">
               <label htmlFor="mobile">
                 Phone Number<span className="text-red-500">*</span>
               </label>
@@ -45,7 +45,7 @@ const Contact = () => {
                 name="mobile"
               />
             </div>
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col  w-full">
               <label htmlFor="subject">
                 Subject<span className="text-red-500">*</span>
               </label>
@@ -75,7 +75,7 @@ const Contact = () => {
           </button>
         </form>
       </div>
-      <div className="w-[30%]">
+      <div className="w-full min-[990px]:w-[30%]">
         <Category />
       </div>
     </div>

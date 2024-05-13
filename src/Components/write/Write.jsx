@@ -81,7 +81,7 @@ const Write = () => {
   };
 
   return (
-    <div className="flex mt-16 gap-8 text-white">
+    <div className="flex flex-col mt-10 sm:mt-16 gap-8 min-[990px]:flex-row text-white">
       <div className="flex-1">
         <form className="mt-8" onSubmit={blogForm}>
           <div className="">
@@ -179,16 +179,16 @@ const Write = () => {
               return (
                 <div
                   key={item._id}
-                  className="border flex text-white border-[#383444] rounded-sm overflow-hidden mt-6"
+                  className="border flex flex-col sm:flex-row text-white border-[#383444] rounded-sm overflow-hidden mt-6"
                 >
-                  <div className="w-3/5 min-h-72">
+                  <div className="sm:w-3/5 sm:min-h-72">
                     <img
-                      className="h-[300px] w-full object-cover"
+                      className="h-[250px] sm:h-[300px] w-full object-cover"
                       src={`${BASE_URL}/uploads/${item.blog_img}`}
                       alt={"blog"}
                     />
                   </div>
-                  <div className="w-3/5 p-6 bg-black min-h-72">
+                  <div className="sm:w-3/5 p-6 bg-black sm:min-h-72">
                     <div className="text-sm  flex gap-2 items-center">
                       <p className="text-[#b1b0b7]">{fromatDate(item.date)}</p>
                       <Link className="bg-[#383444] rounded-full px-3 py-2  hover:bg-red-500 transition ease-out delay-100">
@@ -225,7 +225,7 @@ const Write = () => {
             })}
         </div>
       </div>
-      <div className="w-[30%]">
+      <div className="w-full min-[990px]:w-[30%]">
         <Category />
       </div>
     </div>

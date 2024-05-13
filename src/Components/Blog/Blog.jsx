@@ -26,7 +26,7 @@ const Blog = ({ blogs }) => {
   };
   return (
     <div>
-      <div className="grid grid-cols-2 gap-x-6 gap-y-6">
+      <div className="sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-6 md:grid-cols-2 md:grid md:gap-x-6 md:gap-y-6 flex flex-col gap-6">
         {blogs.length ? (
           blogs.map((item) => {
             return (
@@ -37,7 +37,7 @@ const Blog = ({ blogs }) => {
                 <div className="h-1/2 overflow-hidden">
                   <Link to={`/blog/${item._id}`}>
                     <img
-                      className="h-[300px] w-full hover:scale-110 transition-transform delay-[.7] ease-in-out object-cover"
+                      className="h-[250px] md:h-[300px] w-full hover:scale-110 transition-transform delay-[.7] ease-in-out object-cover"
                       src={`${BASE_URL}/uploads/${item.blog_img}`}
                       alt={"blog image"}
                     />
@@ -53,7 +53,7 @@ const Blog = ({ blogs }) => {
                       {item.blog_category}
                     </Link>
                   </div>
-                  <div className="min-h-32 border-b pb-4 border-[#383444]">
+                  <div className="md:min-h-32 border-b pb-4 border-[#383444]">
                     <Link to={`/blog/${item._id}`}>
                       <h1 className="text-2xl font-bold mt-2 hover:text-red-500 transition ease-out delay-100 line-clamp-2">
                         {item.blog_title}

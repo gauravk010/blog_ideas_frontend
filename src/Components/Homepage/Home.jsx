@@ -19,28 +19,14 @@ const Home = () => {
       fetchAll();
     }
   }, [querry]);
-  // category code
-  // const [blogItems, setBlogItems] = useState(data)
-  // const allCategories = ['All', ...new Set(blogs.map(item => item.blog_category))];
-  // const [buttons, setButtons] = useState(allCategories)
-
-  // const filter = (categ) => {
-  //     if (categ === 'All') {
-  //         setBlogItems(blogs);
-  //         return;
-  //     }
-  //     const filteredData = blogs.filter(items => items.blog_category === categ)
-  //     setBlogItems(filteredData)
-  // }
 
   return (
     <>
-      {/* <Featured /> */}
-      <div className="flex mt-16 gap-8">
+      <div className="flex flex-col mt-10 sm:mt-16 gap-8 min-[990px]:flex-row">
         <div className="flex-1">
           <Blog blogs={blogs} />
         </div>
-        <div className="w-[30%]">
+        <div className="w-full min-[990px]:w-[30%]">
           <Category />
         </div>
       </div>

@@ -81,7 +81,7 @@ const UpdateBlog = () => {
   };
 
   return (
-    <div className="flex mt-16 gap-8 text-white">
+    <div className="flex flex-col mt-10 sm:mt-16 gap-8 min-[990px]:flex-row text-white">
       <div className="flex-1">
         <form className="mt-8" onSubmit={submitBLog}>
           <div className="">
@@ -183,7 +183,7 @@ const UpdateBlog = () => {
           </button>
         </form>
       </div>
-      <div className="w-[30%]">
+      <div className="w-full min-[990px]:w-[30%]">
         <Category />
       </div>
     </div>

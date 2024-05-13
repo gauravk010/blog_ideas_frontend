@@ -17,7 +17,7 @@ function App() {
   return (
     <BlogContextProvider>
       <BrowserRouter>
-        <div className="w-[70%] mx-auto ">
+        <div className="w-[95%] mx-auto  xl:w-[80%] 2xl:w-[70%]">
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -34,12 +34,12 @@ function App() {
           </Routes>
         </div>
         <div className="border-b border-t border-[#383444] mt-20">
-          <div className="w-[70%] mx-auto ">
+          <div className="xl:w-[80%] 2xl:w-[70%] w-[95%] mx-auto ">
             <Footer />
           </div>
         </div>
         <div className="text-[#b1b0b7] text-center py-10">
-          Copyright © 2024 Blog Ideas 
+          Copyright © 2024 Blog Ideas
         </div>
       </BrowserRouter>
     </BlogContextProvider>

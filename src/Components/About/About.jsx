@@ -9,11 +9,11 @@ export const About = () => {
   }, []);
 
   return (
-    <div className="flex mt-16 gap-8">
+    <div className="flex flex-col mt-10 sm:mt-16 gap-8 min-[990px]:flex-row">
       <div className="flex-1">
         <div className="border text-white border-[#383444] rounded-sm overflow-hidden">
-          <img className="h-[500px] w-full object-cover" src={blog} alt="" />
-          <div className="p-10">
+          <img className="sm:h-[500px] h-[300px] w-full object-cover" src={blog} alt="" />
+          <div className="p-5 sm:p-10">
             <h1 className="text-2xl font-bold">BLOG IDEAS</h1>
             <p className="mt-2">
               Undo draft ellipse horizontal bullet. Align pencil ellipse group
@@ -55,7 +55,7 @@ export const About = () => {
           </div>
         </div>
       </div>
-      <div className="w-[30%]">
+      <div className="w-full min-[990px]:w-[30%]">
         <Category />
       </div>
     </div>
